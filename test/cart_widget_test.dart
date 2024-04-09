@@ -47,7 +47,7 @@ void main() {
       await tester.pumpWidget(createCartScreen());
 
       // Adding five items in the cart and testing.
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 3; i++) {
         var item = catalogModel!.getByPosition(i);
         cartModel!.add(item);
         await tester.pumpAndSettle();

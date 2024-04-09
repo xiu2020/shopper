@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_shopper/models/cart.dart';
 
+import 'buttom.dart';
+
 class MyCart extends StatelessWidget {
   const MyCart({super.key});
 
@@ -17,7 +19,7 @@ class MyCart extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: Container(
-        color: Colors.yellow,
+        color: Colors.white,
         child: Column(
           children: [
             Expanded(
@@ -31,6 +33,7 @@ class MyCart extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: tab(),
     );
   }
 }

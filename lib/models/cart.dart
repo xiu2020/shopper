@@ -27,7 +27,7 @@ class CartModel extends ChangeNotifier {
   List<Item> get items => _itemIds.map((id) => _catalog.getById(id)).toList();
 
   /// The current total price of all items.
-  int get totalPrice =>
+  double get totalPrice =>
       items.fold(0, (total, current) => total + current.price);
 
   /// Adds [item] to cart. This is the only way to modify the cart from outside.

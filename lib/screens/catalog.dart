@@ -7,6 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_shopper/models/cart.dart';
 import 'package:provider_shopper/models/catalog.dart';
+import 'package:provider_shopper/common/common.dart';
+
+import 'buttom.dart';
 
 class MyCatalog extends StatelessWidget {
   const MyCatalog({super.key});
@@ -20,10 +23,21 @@ class MyCatalog extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 12)),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-                (context, index) => _MyListItem(index)),
+                //(context, index) => _MyListItem(index)),
+                (context, index) {
+                  if (index < customItemList.length) {
+                    return _MyListItem(index);
+                  } else {
+                    return null;
+                  }
+                },
+             childCount: customItemList.length,
           ),
+          ),
+          //_ButtomBar(),
         ],
       ),
+      bottomNavigationBar: tab(),
     );
   }
 }
@@ -93,32 +107,51 @@ class _MyListItem extends StatelessWidget {
 
   const _MyListItem(this.index);
 
+
   @override
   Widget build(BuildContext context) {
     var item = context.select<CatalogModel, Item>(
       // Here, we are only interested in the item at [index]. We don't care
       // about any other change.
-      (catalog) => catalog.getByPosition(index),
+      (catalog) => catalog.getByPosition(customItemList[index].id),
     );
     var textTheme = Theme.of(context).textTheme.titleSmall;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: LimitedBox(
-        maxHeight: 48,
+      child: GestureDetector(
+        onTap: () async {
+          await showCustomAlertDialog(context, item.name, item.desc);
+        },
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                color: item.color,
+            Container(
+              width: 50, // 设置图片容器的宽度
+              height: 50, // 设置图片容器的高度
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(item.image), // 替换为您的图片路径
+                  fit: BoxFit.cover, // 根据需要调整图片填充方式
+                ),
               ),
             ),
-            const SizedBox(width: 14),
+            const SizedBox(width: 24), // 调整图片和描述之间的间距
             Expanded(
-              child: Text(item.name, style: textTheme),
+              child: Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(item.name, style: textTheme),
+                    Text(
+                      item.desc,
+                      style: TextStyle(color: Colors.grey),
+                      softWrap: false,
+                    ),
+                  ],
+                ),
+              ),
             ),
-            const SizedBox(width: 24),
             _AddButton(item: item),
           ],
         ),
