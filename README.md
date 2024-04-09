@@ -52,3 +52,9 @@ If you have a general question about Provider, the best places to go are:
 
 If you run into an issue with the sample itself, please file an issue
 in the [main Flutter repo](https://github.com/flutter/flutter/issues).
+
+## 加图标： 然后运行 flutter pub get 命令来安装指定版本的插件； flutter pub global activate flutter_launcher_icons；
+dependencies:
+flutter_launcher_icons: 0.9.2
+
+## 制作app
