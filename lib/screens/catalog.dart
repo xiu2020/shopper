@@ -10,9 +10,58 @@ import 'package:provider_shopper/models/catalog.dart';
 import 'package:provider_shopper/common/common.dart';
 
 import 'buttom.dart';
+import 'dart:convert';
 
-class MyCatalog extends StatelessWidget {
+
+class MyCatalog extends StatefulWidget {
   const MyCatalog({super.key});
+  //const MyCatalog({required Key key}) : super(key: key);
+
+  @override
+  _MyCatalogState createState() => _MyCatalogState();
+
+}
+
+class _MyCatalogState extends State<MyCatalog> {
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    var items = await getCustomItems();
+    setState(() {
+      customItemList = items;
+    });
+  }
+
+  Future<List<Item>> getCustomItems() async {
+    var jsonString = "";
+    List<Item> customItemListTmp = [];
+
+    // 使用await等待异步操作完成
+    var value = await GetData("/client/test", {}, "get");
+    jsonString = value;
+
+    List<dynamic> jsonData = json.decode(jsonString);
+    for (var item in jsonData) {
+      try {
+        Item newItem = Item(
+            item["id"],
+            item["name"],
+            item["image"],
+            item["desc"],
+            item["price"].toDouble());
+        print("New Item: $newItem");
+        customItemListTmp.add(newItem);
+      } catch (e) {
+        print("Error adding item to customItemListTmp: $e");
+      }
+    }
+    print("test");
+    return customItemListTmp;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +86,7 @@ class MyCatalog extends StatelessWidget {
           //_ButtomBar(),
         ],
       ),
-      bottomNavigationBar: tab(),
+      bottomNavigationBar: customerBottomTab(),
     );
   }
 }
@@ -110,6 +159,10 @@ class _MyListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (index >= customItemList.length) {
+      return Container(); // 返回一个空的容器或者其他适当的占位符
+    }
+
     var item = context.select<CatalogModel, Item>(
       // Here, we are only interested in the item at [index]. We don't care
       // about any other change.

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider_shopper/common/httpUtil.dart';
+import 'package:provider_shopper/common/common.dart';
 
 class MyLogin extends StatelessWidget {
   const MyLogin({super.key});
@@ -33,48 +34,9 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> _showDialog(String text) async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('提示'),
-          content: Text(text),
-          actions: <Widget>[
-            TextButton(
-              child: Text('确定'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
-  Future<void> _showDialogSuccess(String text) async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('提示'),
-          content: Text(text),
-          actions: <Widget>[
-            TextButton(
-              child: Text('确定'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                context.pushReplacement('/catalog');
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
-  Future<void> login(String username, String password) async {
+  Future<void> login(BuildContext context, String username, String password) async {
     var url = Uri.parse('http://172.24.110.18:2000/client/test');
     Map<String, String> headers = {'content-type': 'application/json'};
     Map<String, String> body = {'username': username, 'password': password};
@@ -98,14 +60,14 @@ class _LoginPageState extends State<LoginPage> {
           //await _showDialogSuccess('登录成功1');
           context.go('/catalog');
         } else {
-          await _showDialog('登录失败，请检查用户名和密码是否正确');
+          await showCommonDialog(context,'登录失败，请检查用户名和密码是否正确');
         }
       } else {
-        await _showDialog('网络错误，请稍后再试！');
+        await showCommonDialog(context, '网络错误，请稍后再试！');
       }
     } catch (e) {
       print('Error occurred: $e');
-      await _showDialog('网络错误，请稍后再试！');
+      await useSnackBar(context, '网络错误，请稍后再试！', "");
     }
   }
 
@@ -148,11 +110,11 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   var username = userController.text;
                   var password = passwordController.text;
-                  login(username, password);
+                  login(context, username, password);
                   //context.pushReplacement('/catalog');
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow,
+                  backgroundColor: Colors.blueAccent,
                 ),
                 child: const Text('ENTER'),
               )
@@ -163,4 +125,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-

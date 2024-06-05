@@ -8,6 +8,14 @@ import 'package:provider_shopper/models/cart.dart';
 
 import 'buttom.dart';
 
+/*
+AppBar（应用栏）：通过 Scaffold 的 appBar 属性，可以定义应用程序顶部的应用栏，通常包含标题、操作按钮等。
+Body（主体内容）：通过 Scaffold 的 body 属性，可以定义应用程序的主体内容，即显示在应用栏下方的内容部分。
+FloatingActionButton（浮动操作按钮）：通过 Scaffold 的 floatingActionButton 属性，可以定义一个浮动操作按钮，通常用于执行常见的操作。
+Drawer（抽屉菜单）：通过 Scaffold 的 drawer 属性，可以定义一个抽屉菜单，用于显示导航链接或其他相关内容。
+BottomNavigationBar（底部导航栏）：通过 Scaffold 的 bottomNavigationBar 属性，可以定义一个底部导航栏，用于快速切换应用程序中的不同页面或功能。
+SnackBar（消息栏）：通过 Scaffold 的 snackBar 属性，可以显示一个短暂的消息栏，用于向用户显示临时信息。
+ */
 class MyCart extends StatelessWidget {
   const MyCart({super.key});
 
@@ -33,7 +41,7 @@ class MyCart extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: tab(),
+      bottomNavigationBar: customerBottomTab(),
     );
   }
 }

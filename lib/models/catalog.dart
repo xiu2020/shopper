@@ -37,7 +37,8 @@ class CatalogModel {
   }
 }
 
-List<Item> customItemList = [
+List<Item> customItemList = [];
+/*List<Item> customItemList = [
   Item(1, 'Item 1', "assets/images/Icon-192.png", "desc1 desc desc desc desc desc1 desc desc desc desc desc1 desc desc desc desc...", 1),
   Item(2, 'Item 2', "assets/images/bw.png", "desc2 desc desc desc desc...", 2),
   Item(3, 'Item 3', "assets/images/bw.png", "desc3 desc desc desc desc...", 3),
@@ -54,7 +55,9 @@ List<Item> customItemList = [
   Item(14, 'Item 14', "assets/images/bw.png", "desc2 desc desc desc desc...", 14),
   Item(15, 'Item 15', "assets/images/bw.png", "desc3 desc desc desc desc...", 15),
   // 添加更多的自定义 Item 对象
-];
+
+
+];*/
 
 @immutable
 class Item {
@@ -64,7 +67,12 @@ class Item {
   final String desc;
   double price = 42;
 
-  Item(this.id, this.name, this.image, this.desc, this.price){}
+  Item(this.id, this.name, this.image, this.desc, this.price);
+
+  @override
+  String toString() {
+    return 'Item{id: $id, name: $name, image: $image, desc: $desc, price: $price}';
+  }
   /*Item(this.id, this.name)
       // To make the sample app look nicer, each item is given one of the
       // Material Design primary colors.

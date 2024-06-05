@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
 
-class tab extends StatefulWidget {
+class customerBottomTab extends StatefulWidget {
   @override
   _tabState createState() => _tabState();
 }
 
-class _tabState extends State<tab> {
+class _tabState extends State<customerBottomTab> {
   int currentIndex = 0;
   List _pageList=[
     //Home(),
