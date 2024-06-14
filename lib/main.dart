@@ -13,6 +13,7 @@ import 'package:provider_shopper/models/cart.dart';
 import 'package:provider_shopper/models/catalog.dart';
 import 'package:provider_shopper/screens/cart.dart';
 import 'package:provider_shopper/screens/catalog.dart';
+import 'package:provider_shopper/screens/category.dart';
 import 'package:provider_shopper/screens/login.dart';
 import 'package:window_size/window_size.dart';
 
@@ -51,6 +52,16 @@ GoRouter router() {
       GoRoute(
         path: '/catalog',
         builder: (context, state) => const MyCatalog(),
+        routes: [
+          GoRoute(
+            path: 'cart',
+            builder: (context, state) => const MyCart(),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: '/category',
+        builder: (context, state) => const MainCategoryPage(),
         routes: [
           GoRoute(
             path: 'cart',

@@ -58,7 +58,8 @@ class _LoginPageState extends State<LoginPage> {
         //var message = decodedJson['msg'];
         if (message == 'success' || message == 'Success') {
           //await _showDialogSuccess('登录成功1');
-          context.go('/catalog');
+          //context.go('/catalog');
+          context.go('/category');
         } else {
           await showCommonDialog(context,'登录失败，请检查用户名和密码是否正确');
         }

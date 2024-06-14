@@ -21,7 +21,7 @@ class CatalogModel {
   ///
   /// In this sample, the catalog is infinite, looping over [itemNames].
   Item getById(int id) {
-    for(var item in customItemList) {
+    for (var item in customItemList) {
       if (item.id == id) {
         return Item(item.id, item.name, item.image, item.desc, item.price);
       }
@@ -34,6 +34,19 @@ class CatalogModel {
     // In this simplified case, an item's position in the catalog
     // is also its id.
     return getById(id);
+  }
+
+  CategoryItems getCategoryItemByPosition(int id,
+      CategoryItems categoryItemsTmp) {
+    return getCategoryItemById(id, categoryItemsTmp);
+  }
+
+  CategoryItems getCategoryItemById(int id, CategoryItems categoryItemsTmp) {
+    if (categoryItemsTmp == null) {
+      return CategoryItems(0, "0", []);
+    }
+    return CategoryItems(
+        categoryItemsTmp.id, categoryItemsTmp.name, categoryItemsTmp.items);
   }
 }
 
@@ -84,4 +97,17 @@ class Item {
 
   @override
   bool operator ==(Object other) => other is Item && other.id == id;
+}
+
+class CategoryItems {
+  final int id;
+  final String name;
+  final List<Item> items ;
+
+  CategoryItems(this.id, this.name, this.items);
+
+  @override
+  String print() {
+    return this.name;
+  }
 }
