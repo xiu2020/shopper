@@ -15,10 +15,20 @@ import 'package:provider_shopper/screens/cart.dart';
 import 'package:provider_shopper/screens/catalog.dart';
 import 'package:provider_shopper/screens/category.dart';
 import 'package:provider_shopper/screens/login.dart';
+import 'package:provider_shopper/screens/register.dart';
+import 'package:provider_shopper/screens/wx.dart';
 import 'package:window_size/window_size.dart';
+//import 'package:fluwx/fluwx.dart' as fluwx;
 
 void main() {
   setupWindow();
+  //初始化微信SDK
+  //fluwx.registerWxApi(appId: "YOUR_WECHAT_APP_ID", doOnAndroid: true, doOnIOS: true);
+  FlutterError.onError = (FlutterErrorDetails details) {
+    // 处理错误
+    print(details.exceptionAsString());
+  };
+
   runApp(const MyApp());
 }
 
@@ -69,6 +79,14 @@ GoRouter router() {
           ),
         ],
       ),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => RegisterPage(),
+      ),
+      /*GoRoute(
+        path: '/wxlogin',
+        builder: (context, state) => WxLogin(),
+      ),*/
     ],
   );
 }

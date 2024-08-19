@@ -1,7 +1,3 @@
-// Copyright 2020 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -11,43 +7,32 @@ import 'package:http/http.dart' as http;
 import 'package:provider_shopper/common/httpUtil.dart';
 import 'package:provider_shopper/common/common.dart';
 
-class MyLogin extends StatelessWidget {
-  const MyLogin({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: LoginPage(),
-    );
-  }
-}
-
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _LoginPageState();
+    return _RegisterPageState();
   }
 }
 
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController userController = TextEditingController();
+class _RegisterPageState extends State<RegisterPage> {
+  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
-
-
-  Future<void> login(BuildContext context, String username, String password) async {
-    var url = Uri.parse('http://172.24.110.18:2000/client/test');
+  Future<void> register(BuildContext context, String username, String password) async {
+    // 在这里实现注册逻辑
+    // 例如，发送 POST 请求到注册 API
+    print('Registering user: $username');
+    // 实际的注册逻辑需要根据你的 API 来实现
     Map<String, String> headers = {'content-type': 'application/json'};
     Map<String, String> body = {'username': username, 'password': password};
     var encodedBody = jsonEncode(body);
 
-    // 发送 POST 请求
     ApiManager apiManager = ApiManager();
     int? responseCode = -1;
     String message = "";
     try {
-      Response response = await apiManager.get(apiManager.getBaseUrl() + "/client/test", data: body);
+      Response response = await apiManager.post(apiManager.getBaseUrl() + "/client/test", data: body);
       print(response); // 处理响应数据
       responseCode = response.statusCode;
       message = response.data["msg"];
@@ -57,9 +42,7 @@ class _LoginPageState extends State<LoginPage> {
         //var decodedJson = jsonDecode(responseData);
         //var message = decodedJson['msg'];
         if (message == 'success' || message == 'Success') {
-          //await _showDialogSuccess('登录成功1');
-          //context.go('/catalog');
-          context.go('/category');
+          context.go('/login');
         } else {
           await showCommonDialog(context,'登录失败，请检查用户名和密码是否正确');
         }
@@ -75,6 +58,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('注册'),
+      ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(80.0),
@@ -82,56 +68,55 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Welcome',
-                style: Theme.of(context).textTheme.displaySmall,
+                '注册',
+                style: Theme.of(context).textTheme.headline4,
               ),
               TextFormField(
                 decoration: const InputDecoration(
-                  hintText: 'Username',
-                  labelText: '用户名',
+                  hintText: '手机号码',
+                  labelText: '手机号码',
                   icon: Icon(Icons.person),
                 ),
                 keyboardType: TextInputType.text,
-                controller: userController,
+                controller: usernameController,
               ),
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: '密码',
-                  hintText: 'Password',
+                  hintText: '密码',
                   icon: Icon(Icons.lock),
                 ),
                 obscureText: true,
                 keyboardType: TextInputType.text,
                 controller: passwordController,
               ),
-              const SizedBox(
-                height: 24,
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: '确认密码',
+                  hintText: '确认密码',
+                  icon: Icon(Icons.lock),
+                ),
+                obscureText: true,
+                keyboardType: TextInputType.text,
+                controller: confirmPasswordController,
               ),
+              const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  var username = userController.text;
+                  var username = usernameController.text;
                   var password = passwordController.text;
-                  login(context, username, password);
-                  //context.pushReplacement('/catalog');
+                  var confirmPassword = confirmPasswordController.text;
+
+                  if (password == confirmPassword) {
+                    register(context, username, password);
+                  } else {
+                    showCommonDialog(context, '密码不匹配，请重新输入');
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
                 ),
-                child: const Text('ENTER'),
-              ),
-              const SizedBox(height: 16),
-              TextButton(
-                onPressed: () {
-                  context.go('/register'); // 导航到注册页面
-                },
-                child: const Text('没有账户？注册'),
-              ),
-              const SizedBox(height: 16),
-              TextButton(
-                onPressed: () {
-                  context.go('/wxlogin'); // 导航到注册页面
-                },
-                child: const Text('微信登陆'),
+                child: const Text('注册'),
               ),
             ],
           ),

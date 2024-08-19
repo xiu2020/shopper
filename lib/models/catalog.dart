@@ -36,8 +36,7 @@ class CatalogModel {
     return getById(id);
   }
 
-  CategoryItems getCategoryItemByPosition(int id,
-      CategoryItems categoryItemsTmp) {
+  CategoryItems getCategoryItemByPosition(int id, CategoryItems categoryItemsTmp) {
     return getCategoryItemById(id, categoryItemsTmp);
   }
 
@@ -45,8 +44,7 @@ class CatalogModel {
     if (categoryItemsTmp == null) {
       return CategoryItems(0, "0", []);
     }
-    return CategoryItems(
-        categoryItemsTmp.id, categoryItemsTmp.name, categoryItemsTmp.items);
+    return CategoryItems(categoryItemsTmp.id, categoryItemsTmp.name, categoryItemsTmp.items);
   }
 }
 
