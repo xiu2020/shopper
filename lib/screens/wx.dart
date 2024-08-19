@@ -1,15 +1,15 @@
-/*import 'dart:convert';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:http/http.dart' as http;
 
-void main() {
+/*void main() {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize WeChat SDK
   fluwx.registerWxApi(appId: "wxf6973a98544b6f48", doOnAndroid: true, doOnIOS: false);
 
   runApp(WxLogin());
-}
+}*/
 
 class WxLogin extends StatelessWidget {
   @override
@@ -99,5 +99,3 @@ class WxLoginPage extends StatelessWidget {
     );
   }
 }
-
- */

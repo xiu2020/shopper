@@ -30,5 +30,25 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+       <!-- wx -->
+       <meta-data
+           android:name="com.tencent.mm.sdk.openapi.WXAppId"
+           android:value="wxf6973a98544b6f48" />
+       <meta-data
+           android:name="com.tencent.mm.sdk.openapi.WXAppSecret"
+           android:value="a029bed73e2facf3fdf561784896f47b" />
+
+       <activity
+           android:name="com.jeremy.flutter.plugin.wechat.WechatPluginActivity"
+           android:launchMode="singleTask"
+           android:exported="true">
+           <intent-filter>
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+               <data android:scheme="wxf6973a98544b6f48" />
+           </intent-filter>
+       </activity>
     </application>
 </manifest>

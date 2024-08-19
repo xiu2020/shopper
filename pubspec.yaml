@@ -24,6 +24,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   http: ^0.13.0
+  fluwx: ^3.0.0
 
 flutter:
   uses-material-design: true

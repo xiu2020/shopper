@@ -18,7 +18,7 @@ import 'package:provider_shopper/screens/login.dart';
 import 'package:provider_shopper/screens/register.dart';
 import 'package:provider_shopper/screens/wx.dart';
 import 'package:window_size/window_size.dart';
-//import 'package:fluwx/fluwx.dart' as fluwx;
+import 'package:fluwx/fluwx.dart' as fluwx;
 
 void main() {
   setupWindow();
@@ -28,6 +28,15 @@ void main() {
     // 处理错误
     print(details.exceptionAsString());
   };
+
+  WidgetsFlutterBinding.ensureInitialized();
+  fluwx.registerWxApi(
+    appId: "wxf6973a98544b6f48",
+    doOnAndroid: true,
+    doOnIOS: true,
+    // 假设有一个开发模式参数
+    //ignoreSignatureCheck: true,
+  );
 
   runApp(const MyApp());
 }
@@ -83,10 +92,10 @@ GoRouter router() {
         path: '/register',
         builder: (context, state) => RegisterPage(),
       ),
-      /*GoRoute(
+      GoRoute(
         path: '/wxlogin',
         builder: (context, state) => WxLogin(),
-      ),*/
+      ),
     ],
   );
 }
